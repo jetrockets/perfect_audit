@@ -23,6 +23,10 @@ module PerfectAudit
     def books
       PerfectAudit::BooksRepository.new
     end
+
+    def documents
+      PerfectAudit::DocumentsRepository.new
+    end
   end
 
   # def self.try_dry_rb_container
@@ -61,6 +65,5 @@ module PerfectAudit
 end
 
 require 'perfect_audit/api/repositories'
-
 
 require 'local_configuration'

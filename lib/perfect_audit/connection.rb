@@ -18,7 +18,6 @@ module PerfectAudit
       HTTP.basic_auth(:user => api_key, :pass => api_secret).get(url(path), params)
     end
 
-
     private
 
     def url(path)

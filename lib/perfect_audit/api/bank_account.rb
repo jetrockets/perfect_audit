@@ -2,7 +2,7 @@ module PerfectAudit
   class BankAccount
     extend Dry::Initializer
 
-    option :pk
+    option :pk, as: :id
     option :account_type#, optional: true
     option :account_holder#, optional: true
     option :account_number#, optional: true

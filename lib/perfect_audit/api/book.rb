@@ -5,10 +5,10 @@ module PerfectAudit
   class Book
     extend Dry::Initializer
 
-    option :pk, optional: true
-    option :created, optional: true, as: :created_at
+    option :pk, as: :id
+    option :created, as: :created_at
     option :name
-    option :is_public, default: proc { false }, as: :public
+    option :is_public, as: :public
     option :owner_email, optional: true
     option :status_tags, optional: true
     option :bank_accounts, optional: true, as: :_bank_accounts

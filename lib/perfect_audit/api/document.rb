@@ -12,7 +12,7 @@ module PerfectAudit
       rejected
     )
 
-    option :pk
+    option :pk, as: :id
     option :pages
     option :status, proc(&:downcase)
     option :name
