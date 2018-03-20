@@ -1,4 +1,5 @@
 require 'perfect_audit/api/bank_account'
+require 'perfect_audit/api/document'
 
 module PerfectAudit
   class Book
@@ -11,7 +12,7 @@ module PerfectAudit
     option :owner_email, optional: true
     option :status_tags, optional: true
     option :bank_accounts, optional: true, as: :_bank_accounts
-    option :docs, optional: true
+    option :docs, optional: true, as: :_documents
 
     alias_method :public?, :public
 
@@ -19,6 +20,16 @@ module PerfectAudit
       _bank_accounts.map do |id, params|
         PerfectAudit::BankAccount.new(params.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo})
       end
+    end
+
+    def documents
+      _documents.map do |item|
+        PerfectAudit::Document.new(item.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo})
+      end
+    end
+
+    def verification_complete?
+      documents.all?(&:verification_complete?)
     end
   end
 end
