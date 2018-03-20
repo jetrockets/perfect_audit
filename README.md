@@ -22,7 +22,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+``` ruby
+  PerfectAudit.configure do |config|
+    config[:api_key] = 'your_api_key'
+    config[:api_secret] = 'your_api_secret'
+  end
+```
 
 ## Development
 

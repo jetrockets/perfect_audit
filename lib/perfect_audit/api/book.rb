@@ -4,8 +4,8 @@ module PerfectAudit
 
     include PerfectAudit::AutoInject[:connection]
 
-    option :pk
-    option :created
+    option :pk, optional: true
+    option :created, optional: true
     option :name
     option :is_public, default: proc { false }
 
