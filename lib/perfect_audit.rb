@@ -19,6 +19,10 @@ module PerfectAudit
       container.register :response_parser, -> { PerfectAudit::ResponseParser }
       container.freeze
     end
+
+    def books
+      PerfectAudit::BooksRepository.new
+    end
   end
 
   # def self.try_dry_rb_container

@@ -15,6 +15,14 @@ module PerfectAudit
       response_parser.parse(response.body.to_s)
     end
 
+    def all
+      response = connection.get('books')
+
+      response_parser.parse(response.body.to_s).map{ |item|
+        PerfectAudit::Book.new(item)
+      }
+    end
+
     def find(id)
       response = connection.get('book/info',
         params: {
@@ -22,10 +30,7 @@ module PerfectAudit
         }
       )
 
-      response_parser.parse(response.body.to_s)
-    end
-
-    def documents
+      PerfectAudit::Book.new(response_parser.parse(response.body.to_s))
     end
   end
 end
