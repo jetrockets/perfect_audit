@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Igor Alexandrov"]
   spec.email         = ["igor.alexandrov@gmail.com"]
 
-  spec.summary       = %q{Perfect Audit API gem.}
-  spec.description   = %q{Perfect Audit API gem. https://www.perfectaudit.com/api_docs}
+  spec.summary       = %q{Perfect Audit API wrapper.}
+  spec.description   = %q{Perfect Audit API wrapper. https://www.perfectaudit.com/api_docs}
   spec.homepage      = "https://github.com/igor-alexandrov/perfect_audit"
   spec.license       = "MIT"
 

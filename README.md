@@ -1,6 +1,7 @@
 # PerfectAudit
 
-Perfect Audit API gem.
+Perfect Audit API wrapper.
+
 [https://www.perfectaudit.com/api_docs](https://www.perfectaudit.com/api_docs)
 
 ## Installation
