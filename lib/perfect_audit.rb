@@ -2,6 +2,7 @@ require 'dry-container'
 require 'dry-auto_inject'
 
 require 'perfect_audit/connection'
+require 'perfect_audit/response_parser'
 require 'perfect_audit/client'
 require 'perfect_audit/version'
 
@@ -15,6 +16,7 @@ module PerfectAudit
       connection = PerfectAudit::Connection.new(configuration)
       # container.register :main_component, -> { MainComponent.new }
       container.register :connection, -> { connection }
+      container.register :response_parser, -> { PerfectAudit::ResponseParser }
       container.freeze
     end
   end
@@ -54,5 +56,7 @@ module PerfectAudit
   # end
 end
 
-require 'perfect_audit/api/collections'
-require 'perfect_audit/api/book'
+require 'perfect_audit/api/repositories'
+
+
+require 'local_configuration'
