@@ -20,13 +20,49 @@ Or install it yourself as:
 
     $ gem install perfect_audit
 
-## Usage
+## Configuration
 
 ``` ruby
   PerfectAudit.configure do |config|
     config[:api_key] = 'your_api_key'
     config[:api_secret] = 'your_api_secret'
   end
+```
+
+## Usage
+
+### Books
+
+Get books list for your account:
+
+``` ruby
+PerfectAudit.books.all
+```
+
+Create a book:
+
+``` ruby
+PerfectAudit.books.create(name: 'Test book', is_public: 'false')
+```
+
+Get book information:
+
+``` ruby
+PerfectAudit.books.find(book_id)
+```
+
+Delete a book:
+
+``` ruby
+PerfectAudit.books.delete(book_or_id)
+```
+
+### Documents
+
+Upload document to a book:
+
+``` ruby
+PerfectAudit.documents.create(book_or_id, file_or_io)
 ```
 
 ## Development

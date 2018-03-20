@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Perfect Audit API gem.}
   spec.description   = %q{Perfect Audit API gem. https://www.perfectaudit.com/api_docs}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/igor-alexandrov/perfect_audit"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -36,7 +36,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'http'
   spec.add_dependency 'http-form_data'
 
-  spec.add_development_dependency "bundler", "~> 1.11"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency 'bundler', "~> 1.11"
+  spec.add_development_dependency 'rake', "~> 10.0"
+  spec.add_development_dependency 'rspec', "~> 3.0"
+  spec.add_development_dependency 'pry'
 end

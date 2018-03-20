@@ -6,11 +6,12 @@ module PerfectAudit
     include PerfectAudit::AutoInject[:connection]
     include PerfectAudit::AutoInject[:response_parser]
 
-    def create(params)
-      # book = PerfectAudit::Book.new(params)
-
+    def create(name, public = false)
       response = connection.post('book/add',
-        json: params
+        json: {
+          name: name.to_s,
+          is_public: public.to_s
+        }
       )
 
       PerfectAudit::Book.new(response_parser.parse(response.body.to_s))
@@ -27,7 +28,7 @@ module PerfectAudit
     def find(id)
       response = connection.get('book/info',
         params: {
-          pk: id
+          pk: id.to_s
         }
       )
 
@@ -55,7 +56,7 @@ module PerfectAudit
     def create(book_or_id, file)
       id = book_or_id.is_a?(PerfectAudit::Book) ? book_or_id.id.to_s : book_or_id.to_s
 
-      response = connection.post('book/add',
+      response = connection.post('book/upload',
         form: {
           pk: id,
           upload: HTTP::FormData::File.new(file)
@@ -67,4 +68,23 @@ module PerfectAudit
       true
     end
   end
+
+  # class TransactionsRepository
+  #   include PerfectAudit::AutoInject[:connection]
+  #   include PerfectAudit::AutoInject[:response_parser]
+
+  #   def find(book_or_id)
+  #     id = book_or_id.is_a?(PerfectAudit::Book) ? book_or_id.id.to_s : book_or_id.to_s
+
+  #     response = connection.get('transaction',
+  #       params: {
+  #         book_pk: id
+  #       }
+  #     )
+
+  #     response_parser.parse(response.body.to_s)[:bank_accounts].map do |id, params|
+  #       PerfectAudit::BankAccount.new(params.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo})
+  #     end
+  #   end
+  # end
 end
