@@ -9,14 +9,9 @@ module PerfectAudit
 
   class << self
     def configure
-      configuration = Hash.new
       yield configuration
 
-      connection = PerfectAudit::Connection.new(configuration)
-
-      container.register :connection, -> { connection }
-      container.register :response_parser, -> { PerfectAudit::ResponseParser }
-      container.freeze
+      register!
     end
 
     def books
@@ -27,8 +22,18 @@ module PerfectAudit
       PerfectAudit::DocumentsRepository.new
     end
 
-    def transactions
-      PerfectAudit::TransactionsRepository.new
+    # def transactions
+    #   PerfectAudit::TransactionsRepository.new
+    # end
+
+    # private
+
+    def register!
+      connection = PerfectAudit::Connection.new(configuration.to_h)
+
+      container.register :connection, -> { connection }
+      container.register :response_parser, -> { PerfectAudit::ResponseParser }
+      container.freeze
     end
   end
 
@@ -40,6 +45,10 @@ module PerfectAudit
 
   def self.container
     @@container
+  end
+
+  def self.configuration
+    @@configuration ||= OpenStruct.new
   end
 end
 
