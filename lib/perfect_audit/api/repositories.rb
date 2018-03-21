@@ -6,8 +6,13 @@ module PerfectAudit
     include PerfectAudit::AutoInject[:connection]
     include PerfectAudit::AutoInject[:response_parser]
 
+    CREATE_PATH = 'book/add'.freeze
+    ALL_PATH = 'books'.freeze
+    FIND_PATH = 'book/info'.freeze
+    DELETE_PATH = 'book/remove'.freeze
+
     def create(name, public = false)
-      response = connection.post('book/add',
+      response = connection.post(CREATE_PATH,
         json: {
           name: name.to_s,
           is_public: public.to_s
@@ -18,7 +23,7 @@ module PerfectAudit
     end
 
     def all
-      response = connection.get('books')
+      response = connection.get(ALL_PATH)
 
       response_parser.parse(response.body.to_s).map{ |item|
         PerfectAudit::Book.new(item)
@@ -26,7 +31,7 @@ module PerfectAudit
     end
 
     def find(id)
-      response = connection.get('book/info',
+      response = connection.get(FIND_PATH,
         params: {
           pk: id.to_s
         }
@@ -37,7 +42,7 @@ module PerfectAudit
 
     def delete(book_or_id)
       id = book_or_id.is_a?(PerfectAudit::Book) ? book_or_id.id.to_s : book_or_id.to_s
-      response = connection.post('book/remove',
+      response = connection.post(DELETE_PATH,
         json: {
           book_id: id
         }

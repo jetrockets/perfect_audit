@@ -33,7 +33,7 @@ module PerfectAudit
 
       container.register :connection, -> { connection }
       container.register :response_parser, -> { PerfectAudit::ResponseParser }
-      container.freeze
+      # container.freeze
     end
   end
 
@@ -45,6 +45,10 @@ module PerfectAudit
 
   def self.container
     @@container
+  end
+
+  def self.container=(v)
+    @@container = v
   end
 
   def self.configuration
