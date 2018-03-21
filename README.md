@@ -1,5 +1,7 @@
 # PerfectAudit
 
+[![Build Status](https://travis-ci.org/igor-alexandrov/perfect_audit.svg?branch=master)](https://travis-ci.org/igor-alexandrov/perfect_audit)
+
 Perfect Audit API wrapper.
 
 [https://www.perfectaudit.com/api_docs](https://www.perfectaudit.com/api_docs)
