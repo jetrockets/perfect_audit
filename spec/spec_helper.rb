@@ -2,6 +2,9 @@ require 'rspec/collection_matchers'
 require 'webmock/rspec'
 require 'factory_bot'
 
+require 'simplecov'
+SimpleCov.start
+
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'perfect_audit'
 
