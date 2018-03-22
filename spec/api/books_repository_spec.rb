@@ -6,7 +6,6 @@ describe PerfectAudit::BooksRepository do
     PerfectAudit.books
   end
 
-  # let(:book_create_body) { json(:book_create_body) }
   let(:connection) { PerfectAudit.container['connection'] }
 
   context '#all' do
@@ -14,8 +13,10 @@ describe PerfectAudit::BooksRepository do
       PerfectAudit::BooksRepository::ALL_PATH,
     ]}
 
+    let(:books_count) { 5 }
+
     before {
-      stub_request(:get, /perfectaudit/).to_return(body: json(:books, count: 5), status: 200)
+      stub_request(:get, /perfectaudit/).to_return(body: json(:books, count: books_count), status: 200)
     }
 
     it { expect(books).to respond_to(:all) }
@@ -23,6 +24,10 @@ describe PerfectAudit::BooksRepository do
     it 'should call connection#get with correct params' do
       expect(connection).to receive(:get).with(*correct_params).and_call_original
       books.all
+    end
+
+    it "should return instance of Array[PerfectAudit::Book] that have correct number of items" do
+      expect(books.all).to be_instance_of(Array) and have(books_count).items and all(be_instance_of(PerfectAudit::Book))
     end
   end
 
@@ -45,6 +50,10 @@ describe PerfectAudit::BooksRepository do
     it 'should call connection#get with correct params' do
       expect(connection).to receive(:get).with(*correct_params).and_call_original
       books.find(1)
+    end
+
+    it 'should return instance of PerfectAudit::Book' do
+      expect(books.find(1)).to be_instance_of(PerfectAudit::Book)
     end
   end
 end
