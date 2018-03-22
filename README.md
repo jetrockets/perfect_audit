@@ -26,8 +26,8 @@ Or install it yourself as:
 
 ``` ruby
   PerfectAudit.configure do |config|
-    config[:api_key] = 'your_api_key'
-    config[:api_secret] = 'your_api_secret'
+    config.api_key = 'your_api_key'
+    config.api_secret = 'your_api_secret'
   end
 ```
 
