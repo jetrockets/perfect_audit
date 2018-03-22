@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe PerfectAudit::Connection do
-  let(:success_body) { json(:success_body) }
-
   subject(:connection) do
     PerfectAudit.container['connection']
   end
+
+  let(:success_body) { json(:success_body) }
 
   context '#api_key' do
     it { expect(connection.api_key).to eq API_KEY }
@@ -22,9 +22,7 @@ describe PerfectAudit::Connection do
 
     # it { expect(a_request(:get, "https://www.perfectaudit.com")).to have_been_made }
 
-    # it "includes HTTP::Headers::Mixin" do
-    #   expect(connection.get('book/info').body.to_s).to eq json(:success_body)
-    # end
+    it { expect(connection).to respond_to(:get) }
 
     it "returns an instance of HTTP::Response" do
       expect(connection.get(PerfectAudit::BooksRepository::FIND_PATH)).to be_an_instance_of(HTTP::Response)
@@ -37,6 +35,8 @@ describe PerfectAudit::Connection do
     before do
       stub_request(:post, /perfectaudit/).to_return(body: success_body, status: 200)
     end
+
+    it { expect(connection).to respond_to(:post) }
 
     it "returns an instance of HTTP::Response" do
       expect(connection.post(PerfectAudit::BooksRepository::CREATE_PATH)).to be_an_instance_of(HTTP::Response)
