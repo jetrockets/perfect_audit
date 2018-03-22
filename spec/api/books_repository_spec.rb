@@ -6,55 +6,45 @@ describe PerfectAudit::BooksRepository do
     PerfectAudit.books
   end
 
-  let(:book_after_create_body) { json(:book_after_create_body) }
+  # let(:book_create_body) { json(:book_create_body) }
   let(:connection) { PerfectAudit.container['connection'] }
 
-  before do
-    # PerfectAudit.configure do |config|
-    #   config.api_key = 'api_key'
-    #   config.api_secret = 'api_secret'
-    # end
+  context '#all' do
+    let(:correct_params) {[
+      PerfectAudit::BooksRepository::ALL_PATH,
+    ]}
 
-    # connection = Class.new do
-    #   def get
-    #   end
-    # end.new
+    before {
+      stub_request(:get, /perfectaudit/).to_return(body: json(:books, count: 5), status: 200)
+    }
 
-    # PerfectAudit.container.enable_stubs!
-    # PerfectAudit.container.stub(:connection, connection)
-    # PerfectAudit.container['connection'].stub(:get) {
-    #   HTTP::Response.new({
-    #     :status  => 200,
-    #     :version => "1.1",
-    #     :body => json(:success_body)
-    #   })
-    # }
+    it { expect(books).to respond_to(:all) }
 
-    stub_request(:get, /perfectaudit/).to_return(body: book_after_create_body, status: 200)
+    it 'should call connection#get with correct params' do
+      expect(connection).to receive(:get).with(*correct_params).and_call_original
+      books.all
+    end
   end
 
   context '#find' do
-    # before { expect(connection).to receive(:get).with(1, anything, /bar/) }
-    # before { books.find(1) }
+    let(:correct_params) {[
+      PerfectAudit::BooksRepository::FIND_PATH,
+      {
+        params: {
+          pk: '1'
+        }
+      }
+    ]}
+
     before {
-      expect(connection).to receive(:get).with(PerfectAudit::BooksRepository::FIND_PATH, {params: { pk: '1'}})
+      stub_request(:get, /perfectaudit/).to_return(body: json(:books), status: 200)
     }
 
     it { expect(books).to respond_to(:find) }
 
-    it 'should call connection#get' do
-      # expect(connection).to receive(:get).with(PerfectAudit::BooksRepository::FIND_PATH, 1)
-       books.find(1)
-
-      # books.find(1, nil, "barn")
-      # it { expect(books).to respond_to(:find) }
+    it 'should call connection#get with correct params' do
+      expect(connection).to receive(:get).with(*correct_params).and_call_original
+      books.find(1)
     end
   end
-
-
-  # it 'blah blah' do
-  #   expect(
-  #     PerfectAudit::BooksRepository.new.find(1)
-  #   ).to have(2).items
-  # end
 end
