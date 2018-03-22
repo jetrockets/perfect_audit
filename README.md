@@ -1,12 +1,12 @@
 # PerfectAudit
 
 [![Build Status](https://travis-ci.org/igor-alexandrov/perfect_audit.svg?branch=master)](https://travis-ci.org/igor-alexandrov/perfect_audit)
+[![Maintainability](https://api.codeclimate.com/v1/badges/72f40b05552e16b9cd4f/maintainability)](https://codeclimate.com/github/igor-alexandrov/perfect_audit/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/72f40b05552e16b9cd4f/test_coverage)](https://codeclimate.com/github/igor-alexandrov/perfect_audit/test_coverage)
 
 Perfect Audit API wrapper.
 
 [https://www.perfectaudit.com/api_docs](https://www.perfectaudit.com/api_docs)
-[![Maintainability](https://api.codeclimate.com/v1/badges/72f40b05552e16b9cd4f/maintainability)](https://codeclimate.com/github/igor-alexandrov/perfect_audit/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/72f40b05552e16b9cd4f/test_coverage)](https://codeclimate.com/github/igor-alexandrov/perfect_audit/test_coverage)
 
 ## Installation
 
