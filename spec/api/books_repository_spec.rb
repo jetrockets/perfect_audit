@@ -8,7 +8,7 @@ describe PerfectAudit::BooksRepository do
 
   let(:connection) { PerfectAudit.container['connection'] }
 
-  context '#all' do
+  describe '#all' do
     let(:correct_params) {[
       PerfectAudit::BooksRepository::ALL_PATH,
     ]}
@@ -31,7 +31,7 @@ describe PerfectAudit::BooksRepository do
     end
   end
 
-  context '#find' do
+  describe '#find' do
     let(:correct_params) {[
       PerfectAudit::BooksRepository::FIND_PATH,
       {

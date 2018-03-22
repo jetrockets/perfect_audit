@@ -7,15 +7,15 @@ describe PerfectAudit::Connection do
 
   let(:success_body) { json(:success_body) }
 
-  context '#api_key' do
+  describe '#api_key' do
     it { expect(connection.api_key).to eq API_KEY }
   end
 
-  context '#api_secret' do
+  describe '#api_secret' do
     it { expect(connection.api_secret).to eq API_SECRET }
   end
 
-  context '#get' do
+  describe '#get' do
     before do
       stub_request(:get, /perfectaudit/).to_return(body: success_body, status: 200)
     end
@@ -31,7 +31,7 @@ describe PerfectAudit::Connection do
     it { expect(connection.get(PerfectAudit::BooksRepository::FIND_PATH).body.to_s).to eq success_body }
   end
 
-  context '#post' do
+  describe '#post' do
     before do
       stub_request(:post, /perfectaudit/).to_return(body: success_body, status: 200)
     end

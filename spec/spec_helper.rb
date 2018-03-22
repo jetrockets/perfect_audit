@@ -1,6 +1,7 @@
 require 'rspec/collection_matchers'
 require 'webmock/rspec'
 require 'factory_bot'
+require 'faker'
 
 require 'simplecov'
 SimpleCov.start

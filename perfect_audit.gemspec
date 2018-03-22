@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', "~> 1.11"
 
   spec.add_development_dependency 'factory_bot'
+  spec.add_development_dependency 'faker'
 
   spec.add_development_dependency 'pry'
 

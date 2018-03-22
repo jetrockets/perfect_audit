@@ -1,18 +1,4 @@
 FactoryBot.define do
-  # factory :success_response, class: HTTP::Response do
-  #   status 200
-  #   version "1.1"
-  #   body {
-  #     JSON.dump({
-  #       status: 200,
-  #       msg: 'OK',
-  #       response: {
-  #         pk: 10399
-  #       }
-  #     })
-  #   }
-  # end
-
   factory :success_body, class: OpenStruct do
     status 200
     msg 'OK'
@@ -25,16 +11,16 @@ FactoryBot.define do
 
       response do
         count == 1 ? {
-          name: "Test Book",
-          created: Time.now.to_s,
-          is_public: false,
-          pk: 1
+          name: Faker::Science.element,
+          created: Faker::Time.backward(90),
+          is_public: Faker::Boolean.boolean,
+          pk: Faker::Number.number(5)
         } : count.times.map {
           {
-            name: "Test Book",
-            created: Time.now.to_s,
-            is_public: false,
-            pk: 1
+            name: Faker::Science.element,
+            created: Faker::Time.backward(90),
+            is_public: Faker::Boolean.boolean,
+            pk: Faker::Number.number(5)
           }
         }
       end
