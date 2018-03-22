@@ -1,11 +1,12 @@
 require 'ostruct'
+require 'perfect_audit/error'
 
 module PerfectAudit
   class ResponseParser
     def self.parse(response)
       struct = OpenStruct.new(JSON.parse(response))
 
-      raise StandardError, struct.message if struct.status != 200
+      raise PerfectAudit::Error.new(struct.message, struct.code) if struct.status != 200
 
       case struct.response
       when Hash

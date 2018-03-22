@@ -85,4 +85,31 @@ describe PerfectAudit::BooksRepository do
       expect(books.create(name, public)).to be_instance_of(PerfectAudit::Book)
     end
   end
+
+  describe '#delete' do
+    let(:id) { Faker::Number.number(5) }
+    let(:correct_params) {[
+      PerfectAudit::BooksRepository::DELETE_PATH,
+      {
+        json: {
+          book_id: id
+        }
+      }
+    ]}
+
+    before {
+      stub_request(:post, /perfectaudit/).to_return(body: json(:success_body), status: 200)
+    }
+
+    it { expect(books).to respond_to(:delete) }
+
+    it 'should call connection#post with correct params' do
+      expect(connection).to receive(:post).with(*correct_params).and_call_original
+      books.delete(id)
+    end
+
+    it 'should return `true` if book is allowed to be removed' do
+      expect(books.delete(id)).to be(true)
+    end
+  end
 end

@@ -26,14 +26,13 @@ module PerfectAudit
     #   PerfectAudit::TransactionsRepository.new
     # end
 
-    # private
+    private
 
     def register!
       connection = PerfectAudit::Connection.new(configuration.to_h)
 
       container.register :connection, -> { connection }
       container.register :response_parser, -> { PerfectAudit::ResponseParser }
-      # container.freeze
     end
   end
 
