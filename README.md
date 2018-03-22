@@ -37,42 +37,63 @@ Or install it yourself as:
 
 If PerfectAudit will return anything different from 200 OK status code, `PerfectAudit::Error` will be raised. It contains `#message` and `#code` returned from API.
 
+For example with invalid credentials you will receive:
+
 ``` ruby
-[1] pry(main)> PerfectAudit.books.all
-PerfectAudit::Error: Email and/or password not found [1306]
-from /Users/igor/workspace/perfect_audit/lib/perfect_audit/response_parser.rb:9:in `parse'
-[2] pry(main)>
+PerfectAudit.books.all
+#=> PerfectAudit::Error: Email and/or password not found [1306]
+```
+
+And if you will try to find a Book that does not exist, you will receive:
+
+``` ruby
+PerfectAudit.books.find(82087)
+#=> PerfectAudit::Error: Book not found [1401]
 ```
 
 ## Usage
 
-### Books
+### Books Repository
 
 Get books list for your account:
 
 ``` ruby
 PerfectAudit.books.all
+#=> [#<PerfectAudit::Book:0x00007ff51bbfbe28>, ...]
 ```
 
 Create a book:
 
 ``` ruby
-PerfectAudit.books.create(name: 'Test book', is_public: 'false')
+# Create a book with name=Test
+PerfectAudit.books.create('Test')
+#=> #<PerfectAudit::Book:0x00007ff51c8e4248 @id=0, @created_at="2018-03-22T20:21:25Z", @name="Test", @public=false ...>
+
+# Create a book with name=Test which is public
+PerfectAudit.books.create('Test', true)
+#=> #<PerfectAudit::Book:0x00007ff51c8e4248 @id=0, @created_at="2018-03-22T20:21:25Z", @name="Test", @public=true ...>
 ```
 
-Get book information:
+Find book by ID:
 
 ``` ruby
-PerfectAudit.books.find(book_id)
+PerfectAudit.books.find(100)
+#=> #<PerfectAudit::Book:0x00007ff51c89f828 @id=100, @created_at="2018-03-22T20:48:54Z", @name="Test", @public=false ...>
 ```
 
 Delete a book:
 
 ``` ruby
-PerfectAudit.books.delete(book_or_id)
+# To delete a book you can use either its ID or instance
+PerfectAudit.books.delete(100)
+#=> true
+
+book = PerfectAudit.books.find(100)
+PerfectAudit.books.delete(book)
+#=> true
 ```
 
-### Documents
+### Documents Repository
 
 Upload document to a book:
 
