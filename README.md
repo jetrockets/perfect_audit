@@ -33,6 +33,17 @@ Or install it yourself as:
   end
 ```
 
+## Exception Handling
+
+If PerfectAudit will return anything different from 200 OK status code, `PerfectAudit::Error` will be raised. It contains `#message` and `#code` returned from API.
+
+``` irb
+[1] pry(main)> PerfectAudit.books.all
+PerfectAudit::Error: Email and/or password not found [1306]
+from /Users/igor/workspace/perfect_audit/lib/perfect_audit/response_parser.rb:9:in `parse'
+[2] pry(main)>
+```
+
 ## Usage
 
 ### Books
