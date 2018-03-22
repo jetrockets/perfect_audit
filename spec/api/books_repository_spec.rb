@@ -56,4 +56,33 @@ describe PerfectAudit::BooksRepository do
       expect(books.find(1)).to be_instance_of(PerfectAudit::Book)
     end
   end
+
+  describe '#create' do
+    let(:name) { Faker::Science.element }
+    let(:public) { Faker::Boolean.boolean }
+    let(:correct_params) {[
+      PerfectAudit::BooksRepository::CREATE_PATH,
+      {
+        json: {
+          name: name,
+          is_public: public.to_s
+        }
+      }
+    ]}
+
+    before {
+      stub_request(:post, /perfectaudit/).to_return(body: json(:books), status: 200)
+    }
+
+    it { expect(books).to respond_to(:create) }
+
+    it 'should call connection#post with correct params' do
+      expect(connection).to receive(:post).with(*correct_params).and_call_original
+      books.create(name, public)
+    end
+
+    it 'should return instance of PerfectAudit::Book' do
+      expect(books.create(name, public)).to be_instance_of(PerfectAudit::Book)
+    end
+  end
 end
