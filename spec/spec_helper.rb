@@ -21,7 +21,10 @@ RSpec.configure do |config|
   end
 end
 
+API_KEY = 'api_key'.freeze
+API_SECRET = 'api_secret'.freeze
+
 PerfectAudit.configure do |config|
-  config.api_key = 'api_key'
-  config.api_secret = 'api_secret'
+  config.api_key = API_KEY
+  config.api_secret = API_SECRET
 end

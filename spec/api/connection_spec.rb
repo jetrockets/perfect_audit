@@ -1,19 +1,23 @@
 require 'spec_helper'
 
 describe PerfectAudit::Connection do
-  let(:api_key) { 'api_key' }
-  let(:api_secret) { 'api_secret' }
+  let(:success_body) { json(:success_body) }
 
   subject(:connection) do
-    described_class.new(
-      :api_key  => api_key,
-      :api_secret  => api_secret
-    )
+    PerfectAudit.container['connection']
+  end
+
+  context '#api_key' do
+    it { expect(connection.api_key).to eq API_KEY }
+  end
+
+  context '#api_secret' do
+    it { expect(connection.api_secret).to eq API_SECRET }
   end
 
   context '#get' do
     before do
-      stub_request(:any, /perfectaudit/).to_return(body: json(:success_body), status: 200)
+      stub_request(:get, /perfectaudit/).to_return(body: success_body, status: 200)
     end
 
     # it { expect(a_request(:get, "https://www.perfectaudit.com")).to have_been_made }
@@ -25,16 +29,20 @@ describe PerfectAudit::Connection do
     it "returns an instance of HTTP::Response" do
       expect(connection.get(PerfectAudit::BooksRepository::FIND_PATH)).to be_an_instance_of(HTTP::Response)
     end
+
+    it { expect(connection.get(PerfectAudit::BooksRepository::FIND_PATH).body.to_s).to eq success_body }
   end
 
   context '#post' do
     before do
-      stub_request(:any, /perfectaudit/).to_return(body: json(:success_body), status: 200)
+      stub_request(:post, /perfectaudit/).to_return(body: success_body, status: 200)
     end
 
     it "returns an instance of HTTP::Response" do
-      expect(connection.post(PerfectAudit::BooksRepository::CREATE_PATH, {})).to be_an_instance_of(HTTP::Response)
+      expect(connection.post(PerfectAudit::BooksRepository::CREATE_PATH)).to be_an_instance_of(HTTP::Response)
     end
+
+    it { expect(connection.post(PerfectAudit::BooksRepository::CREATE_PATH).body.to_s).to eq success_body }
   end
 
 

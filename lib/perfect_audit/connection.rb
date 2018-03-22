@@ -10,7 +10,7 @@ module PerfectAudit
     option :api_key
     option :api_secret
 
-    def post(path, params)
+    def post(path, params = {})
       HTTP.basic_auth(:user => api_key, :pass => api_secret).post(url(path), params)
     end
 
