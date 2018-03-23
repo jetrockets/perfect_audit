@@ -10,6 +10,7 @@ module PerfectAudit
     ALL_PATH = 'books'.freeze
     FIND_PATH = 'book/info'.freeze
     DELETE_PATH = 'book/remove'.freeze
+    EXCEL_EXPORT_PATH = 'book/export/xlsx/analytics'.freeze
 
     def create(name, public = false)
       response = connection.post(CREATE_PATH,
@@ -52,6 +53,17 @@ module PerfectAudit
 
       true
     end
+
+    def to_excel(book_or_id)
+      id = book_or_id.is_a?(PerfectAudit::Book) ? book_or_id.id.to_s : book_or_id.to_s
+      response = connection.get(EXCEL_EXPORT_PATH,
+        params: {
+          pk: id.to_s
+        }
+      )
+
+      response.body.to_s
+    end
   end
 
   class DocumentsRepository
@@ -80,18 +92,20 @@ module PerfectAudit
   #   include PerfectAudit::AutoInject[:connection]
   #   include PerfectAudit::AutoInject[:response_parser]
 
-  #   def find(book_or_id)
-  #     id = book_or_id.is_a?(PerfectAudit::Book) ? book_or_id.id.to_s : book_or_id.to_s
+  #   # def find(book_or_id)
+  #   #   id = book_or_id.is_a?(PerfectAudit::Book) ? book_or_id.id.to_s : book_or_id.to_s
 
-  #     response = connection.get('transaction',
-  #       params: {
-  #         book_pk: id
-  #       }
-  #     )
+  #   #   response = connection.get('transaction',
+  #   #     params: {
+  #   #       book_pk: id
+  #   #     }
+  #   #   )
 
-  #     response_parser.parse(response.body.to_s)[:bank_accounts].map do |id, params|
-  #       PerfectAudit::BankAccount.new(params.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo})
-  #     end
-  #   end
+  #   #   response_parser.parse(response.body.to_s)[:bank_accounts].map do |id, params|
+  #   #     PerfectAudit::BankAccount.new(params.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo})
+  #   #   end
+  #   # end
+
+  #   def
   # end
 end

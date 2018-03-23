@@ -93,6 +93,12 @@ PerfectAudit.books.delete(book)
 #=> true
 ```
 
+Export book to Excel
+``` ruby
+book = PerfectAudit.books.find(100)
+File.write('./book.xlsx', PerfectAudit.books.to_excel(book))
+```
+
 ### Documents Repository
 
 Upload document to a book
