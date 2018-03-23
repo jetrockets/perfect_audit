@@ -12,6 +12,12 @@ module PerfectAudit
     DELETE_PATH = 'book/remove'.freeze
     EXCEL_EXPORT_PATH = 'book/export/xlsx/analytics'.freeze
 
+    # Create book in Perfect Audit
+    #
+    # @param name [String] name of book
+    # @param public [Boolean] should book be public ot not, `true` or `false`
+    # @return [PerfectAudit::Book] newly created book
+    # @raise [PerfectAudit::Error] if anything goes wrong during request
     def create(name, public = false)
       response = connection.post(CREATE_PATH,
         json: {
@@ -23,6 +29,10 @@ module PerfectAudit
       PerfectAudit::Book.new(response_parser.parse(response.body.to_s))
     end
 
+    # Get all books from Perfect Audit for account
+    #
+    # @return [Array<PerfectAudit::Book>]
+    # @raise [PerfectAudit::Error] if anything goes wrong during request
     def all
       response = connection.get(ALL_PATH)
 
@@ -31,6 +41,12 @@ module PerfectAudit
       }
     end
 
+
+    # Find book in Perfect Audit
+    #
+    # @param id [Integer] ID of book
+    # @return [PerfectAudit::Book]
+    # @raise [PerfectAudit::Error] if anything goes wrong during request
     def find(id)
       response = connection.get(FIND_PATH,
         params: {
@@ -41,6 +57,11 @@ module PerfectAudit
       PerfectAudit::Book.new(response_parser.parse(response.body.to_s))
     end
 
+    # Delete book in Perfect Audit
+    #
+    # @param id [Integer] ID of book
+    # @return [true]
+    # @raise [PerfectAudit::Error] if anything goes wrong during request
     def delete(book_or_id)
       id = book_or_id.is_a?(PerfectAudit::Book) ? book_or_id.id.to_s : book_or_id.to_s
       response = connection.post(DELETE_PATH,
