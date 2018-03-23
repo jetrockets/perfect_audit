@@ -58,10 +58,12 @@ module PerfectAudit
     include PerfectAudit::AutoInject[:connection]
     include PerfectAudit::AutoInject[:response_parser]
 
+    CREATE_PATH = 'book/upload'.freeze
+
     def create(book_or_id, file)
       id = book_or_id.is_a?(PerfectAudit::Book) ? book_or_id.id.to_s : book_or_id.to_s
 
-      response = connection.post('book/upload',
+      response = connection.post(CREATE_PATH,
         form: {
           pk: id,
           upload: HTTP::FormData::File.new(file)

@@ -55,14 +55,14 @@ PerfectAudit.books.find(82087)
 
 ### Books Repository
 
-Get books list for your account:
+Get books list for your account
 
 ``` ruby
 PerfectAudit.books.all
 #=> [#<PerfectAudit::Book:0x00007ff51bbfbe28>, ...]
 ```
 
-Create a book:
+Create a book
 
 ``` ruby
 # Create a book with name=Test
@@ -74,14 +74,14 @@ PerfectAudit.books.create('Test', true)
 #=> #<PerfectAudit::Book:0x00007ff51c8e4248 @id=0, @created_at="2018-03-22T20:21:25Z", @name="Test", @public=true ...>
 ```
 
-Find book by ID:
+Find book by ID
 
 ``` ruby
 PerfectAudit.books.find(100)
 #=> #<PerfectAudit::Book:0x00007ff51c89f828 @id=100, @created_at="2018-03-22T20:48:54Z", @name="Test", @public=false ...>
 ```
 
-Delete a book:
+Delete a book
 
 ``` ruby
 # To delete a book you can use either its ID or instance
@@ -95,10 +95,16 @@ PerfectAudit.books.delete(book)
 
 ### Documents Repository
 
-Upload document to a book:
+Upload document to a book
 
 ``` ruby
-PerfectAudit.documents.create(book_or_id, file_or_io)
+# To upload documents to a book you can use book ID or its instance and File
+PerfectAudit.documents.create(100, File.open('./document.pdf'))
+#=> true
+
+book = PerfectAudit.books.find(100)
+PerfectAudit.documents.create(book, File.open('./document.pdf'))
+#=> true
 ```
 
 ## Credits
