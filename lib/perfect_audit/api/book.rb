@@ -35,6 +35,10 @@ module PerfectAudit
     def verification_failed?
       documents.any?(&:failed?)
     end
+
+    def verification_rejected?
+      documents.any?(&:rejected?)
+    end
   end
 end
 
