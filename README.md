@@ -1,9 +1,9 @@
 # PerfectAudit
 
 [![Gem Version](https://badge.fury.io/rb/perfect_audit.svg)](https://badge.fury.io/rb/perfect_audit)
-[![Build Status](https://travis-ci.org/igor-alexandrov/perfect_audit.svg?branch=master)](https://travis-ci.org/igor-alexandrov/perfect_audit)
-[![Maintainability](https://api.codeclimate.com/v1/badges/72f40b05552e16b9cd4f/maintainability)](https://codeclimate.com/github/igor-alexandrov/perfect_audit/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/72f40b05552e16b9cd4f/test_coverage)](https://codeclimate.com/github/igor-alexandrov/perfect_audit/test_coverage)
+[![Build Status](https://travis-ci.org/jetrockets/perfect_audit.svg?branch=master)](https://travis-ci.org/jetrockets/perfect_audit)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f416de8dc8074f1b1588/maintainability)](https://codeclimate.com/github/jetrockets/perfect_audit/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/f416de8dc8074f1b1588/test_coverage)](https://codeclimate.com/github/jetrockets/perfect_audit/test_coverage)
 
 Perfect Audit API wrapper.
 
