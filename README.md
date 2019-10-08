@@ -7,7 +7,7 @@
 
 Perfect Audit API wrapper.
 
-[https://www.perfectaudit.com/api_docs](https://www.perfectaudit.com/api_docs)
+[https://ocrolus.com/api-docs/](https://ocrolus.com/api-docs/)
 
 ## Installation
 

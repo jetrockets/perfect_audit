@@ -5,7 +5,7 @@ module PerfectAudit
   class Connection
     extend Dry::Initializer
 
-    BASE_PATH = 'https://www.perfectaudit.com/api/v1/'.freeze
+    BASE_PATH = 'https://api.ocrolus.com/v1/'.freeze
 
     option :api_key
     option :api_secret
