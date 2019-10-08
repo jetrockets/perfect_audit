@@ -15,8 +15,8 @@ describe PerfectAudit::BooksRepository do
 
     let(:books_count) { 5 }
 
-    before {
-      stub_request(:get, /perfectaudit/).to_return(body: json(:books, count: books_count), status: 200)
+    before(:each) {
+      stub_request(:get, /ocrolus/).to_return(body: json(:books, count: books_count), status: 200)
     }
 
     it { expect(books).to respond_to(:all) }
@@ -41,8 +41,8 @@ describe PerfectAudit::BooksRepository do
       }
     ]}
 
-    before {
-      stub_request(:get, /perfectaudit/).to_return(body: json(:books), status: 200)
+    before(:each) {
+      stub_request(:get, /ocrolus/).to_return(body: json(:books), status: 200)
     }
 
     it { expect(books).to respond_to(:find) }
@@ -70,8 +70,8 @@ describe PerfectAudit::BooksRepository do
       }
     ]}
 
-    before {
-      stub_request(:post, /perfectaudit/).to_return(body: json(:books), status: 200)
+    before(:each) {
+      stub_request(:post, /ocrolus/).to_return(body: json(:books), status: 200)
     }
 
     it { expect(books).to respond_to(:create) }
@@ -92,13 +92,13 @@ describe PerfectAudit::BooksRepository do
       PerfectAudit::BooksRepository::DELETE_PATH,
       {
         json: {
-          book_id: id
+          book_id: id.to_s
         }
       }
     ]}
 
-    before {
-      stub_request(:post, /perfectaudit/).to_return(body: json(:success_body), status: 200)
+    before(:each) {
+      stub_request(:post, /ocrolus/).to_return(body: json(:success_body), status: 200)
     }
 
     it { expect(books).to respond_to(:delete) }

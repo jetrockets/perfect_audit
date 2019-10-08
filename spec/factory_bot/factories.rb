@@ -1,12 +1,12 @@
 FactoryBot.define do
   factory :success_body, class: OpenStruct do
-    status 200
-    msg 'OK'
-    response nil
+    status { 200 }
+    msg { 'OK' }
+    response { nil }
 
     factory :books do
       transient do
-        count 1
+        count { 1 }
       end
 
       response do
