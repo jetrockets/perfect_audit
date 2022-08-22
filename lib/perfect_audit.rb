@@ -29,7 +29,7 @@ module PerfectAudit
     private
 
     def register!
-      connection = PerfectAudit::Connection.new(configuration.to_h)
+      connection = PerfectAudit::Connection.new(**configuration.to_h)
 
       container.register :connection, -> { connection }
       container.register :response_parser, -> { PerfectAudit::ResponseParser }

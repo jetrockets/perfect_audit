@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '~> 2.3'
+  spec.required_ruby_version = '~> 3.0'
 
   # a b c d e f g h i j k l m n o p q r s t u v w x y z
   spec.add_dependency 'dry-auto_inject'
@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'http-form_data'
 
 
-  spec.add_development_dependency 'bundler', "~> 1.11"
+  spec.add_development_dependency 'bundler', "~> 2.0"
 
   spec.add_development_dependency 'factory_bot'
   spec.add_development_dependency 'faker'

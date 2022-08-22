@@ -87,7 +87,7 @@ describe PerfectAudit::BooksRepository do
   end
 
   describe '#delete' do
-    let(:id) { Faker::Number.number(5) }
+    let(:id) { Faker::Number.number(digits: 5) }
     let(:correct_params) {[
       PerfectAudit::BooksRepository::DELETE_PATH,
       {
