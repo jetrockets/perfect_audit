@@ -9,7 +9,7 @@ describe PerfectAudit::DocumentsRepository do
   let(:connection) { PerfectAudit.container['connection'] }
 
   describe '#create' do
-    let(:id) { Faker::Number.number(5) }
+    let(:id) { Faker::Number.number(digits: 5) }
     let(:file) { File.open('spec/support/dummy.pdf') }
     let(:correct_params) {[
       PerfectAudit::DocumentsRepository::CREATE_PATH,
