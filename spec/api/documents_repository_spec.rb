@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'dry/container/stub'
 
@@ -9,19 +11,21 @@ describe PerfectAudit::DocumentsRepository do
   let(:connection) { PerfectAudit.container['connection'] }
 
   describe '#create' do
-    let(:id) { Faker::Number.number(5) }
+    let(:id) { Faker::Number.number(digits: 5) }
     let(:file) { File.open('spec/support/dummy.pdf') }
-    let(:correct_params) {[
-      PerfectAudit::DocumentsRepository::CREATE_PATH,
-      {
-        form: {
-          pk: id,
-          upload: HTTP::FormData::File.new(file)
+    let(:correct_params) {
+      [
+        PerfectAudit::DocumentsRepository::CREATE_PATH,
+        {
+          form: {
+            pk: id,
+            upload: HTTP::FormData::File.new(file)
+          }
         }
-      }
-    ]}
+      ]
+    }
 
-    before(:each) {
+    before {
       stub_request(:post, /ocrolus/).to_return(body: json(:success_body), status: 200)
     }
 
@@ -32,7 +36,7 @@ describe PerfectAudit::DocumentsRepository do
     #   documents.create(id, file)
     # end
 
-    it 'should return `true`' do
+    it 'returns `true`' do
       expect(documents.create(id, file)).to be(true)
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'perfect_audit/api/bank_account'
 require 'perfect_audit/api/document'
 
@@ -18,13 +20,17 @@ module PerfectAudit
 
     def bank_accounts
       _bank_accounts.map do |id, params|
-        PerfectAudit::BankAccount.new(params.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo})
+        PerfectAudit::BankAccount.new(params.each_with_object({}) { |(k, v), memo|
+                                        memo[k.to_sym] = v
+                                      })
       end
     end
 
     def documents
       _documents.map do |item|
-        PerfectAudit::Document.new(item.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo})
+        PerfectAudit::Document.new(item.each_with_object({}) { |(k, v), memo|
+                                     memo[k.to_sym] = v
+                                   })
       end
     end
 
@@ -41,6 +47,3 @@ module PerfectAudit
     end
   end
 end
-
-
-

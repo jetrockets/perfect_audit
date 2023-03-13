@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'perfect_audit/api/book'
 require 'http/form_data'
 
@@ -6,11 +8,11 @@ module PerfectAudit
     include PerfectAudit::AutoInject[:connection]
     include PerfectAudit::AutoInject[:response_parser]
 
-    CREATE_PATH = 'book/add'.freeze
-    ALL_PATH = 'books'.freeze
-    FIND_PATH = 'book/info'.freeze
-    DELETE_PATH = 'book/remove'.freeze
-    EXCEL_EXPORT_PATH = 'book/export/xlsx/analytics'.freeze
+    CREATE_PATH = 'book/add'
+    ALL_PATH = 'books'
+    FIND_PATH = 'book/info'
+    DELETE_PATH = 'book/remove'
+    EXCEL_EXPORT_PATH = 'book/export/xlsx/analytics'
 
     # Create book in Perfect Audit
     #
@@ -23,8 +25,7 @@ module PerfectAudit
         json: {
           name: name.to_s,
           is_public: public.to_s
-        }
-      )
+        })
 
       PerfectAudit::Book.new(response_parser.parse(response.body.to_s))
     end
@@ -36,11 +37,10 @@ module PerfectAudit
     def all
       response = connection.get(ALL_PATH)
 
-      response_parser.parse(response.body.to_s).map{ |item|
+      response_parser.parse(response.body.to_s).map { |item|
         PerfectAudit::Book.new(item)
       }
     end
-
 
     # Find book in Perfect Audit
     #
@@ -51,8 +51,7 @@ module PerfectAudit
       response = connection.get(FIND_PATH,
         params: {
           pk: id.to_s
-        }
-      )
+        })
 
       PerfectAudit::Book.new(response_parser.parse(response.body.to_s))
     end
@@ -67,8 +66,7 @@ module PerfectAudit
       response = connection.post(DELETE_PATH,
         json: {
           book_id: id
-        }
-      )
+        })
 
       response_parser.parse(response.body.to_s)
 
@@ -80,8 +78,7 @@ module PerfectAudit
       response = connection.get(EXCEL_EXPORT_PATH,
         params: {
           pk: id.to_s
-        }
-      )
+        })
 
       response.body.to_s
     end
@@ -91,7 +88,7 @@ module PerfectAudit
     include PerfectAudit::AutoInject[:connection]
     include PerfectAudit::AutoInject[:response_parser]
 
-    CREATE_PATH = 'book/upload'.freeze
+    CREATE_PATH = 'book/upload'
 
     def create(book_or_id, file)
       id = book_or_id.is_a?(PerfectAudit::Book) ? book_or_id.id.to_s : book_or_id.to_s
@@ -100,8 +97,7 @@ module PerfectAudit
         form: {
           pk: id,
           upload: HTTP::FormData::File.new(file)
-        }
-      )
+        })
 
       response_parser.parse(response.body.to_s)
 

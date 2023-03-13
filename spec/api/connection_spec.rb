@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe PerfectAudit::Connection do
@@ -16,7 +18,7 @@ describe PerfectAudit::Connection do
   end
 
   describe '#get' do
-    before(:each) do
+    before do
       stub_request(:get, /ocrolus/).to_return(body: success_body, status: 200)
     end
 
@@ -24,7 +26,7 @@ describe PerfectAudit::Connection do
 
     it { expect(connection).to respond_to(:get) }
 
-    it "returns an instance of HTTP::Response" do
+    it 'returns an instance of HTTP::Response' do
       expect(connection.get(PerfectAudit::BooksRepository::FIND_PATH)).to be_an_instance_of(HTTP::Response)
     end
 
@@ -32,18 +34,16 @@ describe PerfectAudit::Connection do
   end
 
   describe '#post' do
-    before(:each) do
+    before do
       stub_request(:post, /ocrolus/).to_return(body: success_body, status: 200)
     end
 
     it { expect(connection).to respond_to(:post) }
 
-    it "returns an instance of HTTP::Response" do
+    it 'returns an instance of HTTP::Response' do
       expect(connection.post(PerfectAudit::BooksRepository::CREATE_PATH)).to be_an_instance_of(HTTP::Response)
     end
 
     it { expect(connection.post(PerfectAudit::BooksRepository::CREATE_PATH).body.to_s).to eq success_body }
   end
-
-
 end

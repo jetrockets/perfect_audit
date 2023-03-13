@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe PerfectAudit do
@@ -9,7 +11,7 @@ end
 describe 'PerfectAudit#container' do
   it { expect(PerfectAudit.container.keys).to have(2).items }
 
-  it 'should contain `connection` key' do
+  it 'contains `connection` key' do
     expect(PerfectAudit.container.resolve('connection')).to be
   end
 
@@ -17,7 +19,7 @@ describe 'PerfectAudit#container' do
     expect(PerfectAudit.container.resolve('connection')).to be_an_instance_of(PerfectAudit::Connection)
   end
 
-  it 'should contain `response_parser` key' do
+  it 'contains `response_parser` key' do
     expect(PerfectAudit.container.resolve('response_parser')).to be
   end
 end

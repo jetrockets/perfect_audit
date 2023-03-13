@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec/collection_matchers'
 require 'webmock/rspec'
 require 'factory_bot'
@@ -25,8 +27,8 @@ RSpec.configure do |config|
   end
 end
 
-API_KEY = 'api_key'.freeze
-API_SECRET = 'api_secret'.freeze
+API_KEY = 'api_key'
+API_SECRET = 'api_secret'
 
 PerfectAudit.configure do |config|
   config.api_key = API_KEY

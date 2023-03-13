@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module PerfectAudit
   class Document
     extend Dry::Initializer
 
-    STATUSES = %w(
+    STATUSES = %w[
       queued
       failed
       verifying
@@ -10,7 +12,7 @@ module PerfectAudit
       deleting
       deleted
       rejected
-    )
+    ]
 
     option :pk, as: :id
     option :pages

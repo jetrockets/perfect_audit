@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PerfectAudit
   class Period
     extend Dry::Initializer
@@ -11,6 +13,3 @@ module PerfectAudit
     option :secondary_recon_error_reason
   end
 end
-
-
-

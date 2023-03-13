@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dry-container'
 require 'dry-auto_inject'
 
@@ -6,7 +8,6 @@ require 'perfect_audit/response_parser'
 require 'perfect_audit/version'
 
 module PerfectAudit
-
   class << self
     def configure
       yield configuration

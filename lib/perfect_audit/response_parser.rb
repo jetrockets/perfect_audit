@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'ostruct'
 require 'perfect_audit/error'
 
@@ -10,10 +12,14 @@ module PerfectAudit
 
       case struct.response
       when Hash
-        struct.response.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+        struct.response.each_with_object({}) { |(k, v), memo|
+          memo[k.to_sym] = v
+        }
       when Array
         struct.response.map do |item|
-          item.inject({}){ |memo,(k,v)| memo[k.to_sym] = v; memo }
+          item.each_with_object({}) { |(k, v), memo|
+            memo[k.to_sym] = v
+          }
         end
       else
         struct.response

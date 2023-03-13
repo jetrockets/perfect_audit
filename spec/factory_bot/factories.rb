@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :success_body, class: OpenStruct do
     status { 200 }
@@ -10,17 +12,17 @@ FactoryBot.define do
       end
 
       response do
-        count == 1 ? {
+        (count == 1) ? {
           name: Faker::Science.element,
-          created: Faker::Time.backward(90),
+          created: Faker::Time.backward(days: 90),
           is_public: Faker::Boolean.boolean,
-          pk: Faker::Number.number(5)
+          pk: Faker::Number.number(digits: 5)
         } : count.times.map {
           {
             name: Faker::Science.element,
-            created: Faker::Time.backward(90),
+            created: Faker::Time.backward(days: 90),
             is_public: Faker::Boolean.boolean,
-            pk: Faker::Number.number(5)
+            pk: Faker::Number.number(digits: 5)
           }
         }
       end

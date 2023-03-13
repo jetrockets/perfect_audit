@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JsonStrategy
   def initialize
     @strategy = FactoryBot.strategy_by_name(:create).new
