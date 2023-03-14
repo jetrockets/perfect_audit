@@ -6,20 +6,18 @@ describe PerfectAudit do
   it 'has a version number' do
     expect(PerfectAudit::VERSION).not_to be nil
   end
-end
 
-describe 'PerfectAudit#container' do
-  it { expect(PerfectAudit.container.keys).to have(2).items }
+  it { expect(described_class.container.keys).to have(2).items }
 
   it 'contains `connection` key' do
-    expect(PerfectAudit.container.resolve('connection')).to be
+    expect(described_class.container.resolve('connection')).to be_present
   end
 
   it '`connection` should be an instance of PerfectAudit::Connection' do
-    expect(PerfectAudit.container.resolve('connection')).to be_an_instance_of(PerfectAudit::Connection)
+    expect(described_class.container.resolve('connection')).to be_an_instance_of(PerfectAudit::Connection)
   end
 
   it 'contains `response_parser` key' do
-    expect(PerfectAudit.container.resolve('response_parser')).to be
+    expect(described_class.container.resolve('response_parser')).to be_present
   end
 end

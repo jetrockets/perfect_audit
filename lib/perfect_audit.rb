@@ -27,6 +27,14 @@ module PerfectAudit
     #   PerfectAudit::TransactionsRepository.new
     # end
 
+    def container
+      @container ||= Dry::Container.new
+    end
+
+    def configuration
+      @configuration ||= OpenStruct.new
+    end
+
     private
 
     def register!
@@ -39,21 +47,7 @@ module PerfectAudit
 
   private
 
-  @@container = Dry::Container.new
-
-  AutoInject = Dry::AutoInject(@@container)
-
-  def self.container
-    @@container
-  end
-
-  def self.container=(v)
-    @@container = v
-  end
-
-  def self.configuration
-    @@configuration ||= OpenStruct.new
-  end
+  AutoInject = Dry::AutoInject(container)
 end
 
 require 'perfect_audit/api/repositories'

@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 
+# rubocop:disable RSpec/FilePath
 describe PerfectAudit::Connection do
   subject(:connection) do
     PerfectAudit.container['connection']
@@ -47,3 +48,4 @@ describe PerfectAudit::Connection do
     it { expect(connection.post(PerfectAudit::BooksRepository::CREATE_PATH).body.to_s).to eq success_body }
   end
 end
+# rubocop:enable RSpec/FilePath

@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'dry/container/stub'
 
+# rubocop:disable RSpec/FilePath
 describe PerfectAudit::DocumentsRepository do
   subject(:documents) do
     PerfectAudit.documents
@@ -41,3 +42,4 @@ describe PerfectAudit::DocumentsRepository do
     end
   end
 end
+# rubocop:enable RSpec/FilePath

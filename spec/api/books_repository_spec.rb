@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'dry/container/stub'
 
+# rubocop:disable RSpec/FilePath
 describe PerfectAudit::BooksRepository do
   subject(:books) do
     PerfectAudit.books
@@ -26,8 +27,10 @@ describe PerfectAudit::BooksRepository do
     it { expect(books).to respond_to(:all) }
 
     it 'calls connection#get with correct params' do
-      expect(connection).to receive(:get).with(*correct_params).and_call_original
+      allow(connection).to receive(:get).with(*correct_params).and_call_original
+
       books.all
+      expect(connection).to have_received(:get).with(*correct_params)
     end
 
     it 'returns instance of Array[PerfectAudit::Book] that have correct number of items' do
@@ -54,8 +57,10 @@ describe PerfectAudit::BooksRepository do
     it { expect(books).to respond_to(:find) }
 
     it 'calls connection#get with correct params' do
-      expect(connection).to receive(:get).with(*correct_params).and_call_original
+      allow(connection).to receive(:get).with(*correct_params).and_call_original
       books.find(1)
+
+      expect(connection).to have_received(:get).with(*correct_params)
     end
 
     it 'returns instance of PerfectAudit::Book' do
@@ -85,8 +90,10 @@ describe PerfectAudit::BooksRepository do
     it { expect(books).to respond_to(:create) }
 
     it 'calls connection#post with correct params' do
-      expect(connection).to receive(:post).with(*correct_params).and_call_original
+      allow(connection).to receive(:post).with(*correct_params).and_call_original
       books.create(name, public)
+
+      expect(connection).to have_received(:post).with(*correct_params)
     end
 
     it 'returns instance of PerfectAudit::Book' do
@@ -114,8 +121,10 @@ describe PerfectAudit::BooksRepository do
     it { expect(books).to respond_to(:delete) }
 
     it 'calls connection#post with correct params' do
-      expect(connection).to receive(:post).with(*correct_params).and_call_original
+      allow(connection).to receive(:post).with(*correct_params).and_call_original
       books.delete(id)
+
+      expect(connection).to have_received(:post).with(*correct_params)
     end
 
     it 'returns `true` if book is allowed to be removed' do
@@ -123,3 +132,4 @@ describe PerfectAudit::BooksRepository do
     end
   end
 end
+# rubocop:enable RSpec/FilePath
