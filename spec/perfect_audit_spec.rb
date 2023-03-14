@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe PerfectAudit do
   it 'has a version number' do
-    expect(PerfectAudit::VERSION).not_to be nil
+    expect(PerfectAudit::VERSION).not_to be_nil
   end
 
   it { expect(described_class.container.keys).to have(2).items }
