@@ -27,7 +27,7 @@ module PerfectAudit
           is_public: public.to_s
         })
 
-      PerfectAudit::Book.new(response_parser.parse(response.body.to_s))
+      PerfectAudit::Book.new(**response_parser.parse(response.body.to_s))
     end
 
     # Get all books from Perfect Audit for account
@@ -38,7 +38,7 @@ module PerfectAudit
       response = connection.get(ALL_PATH)
 
       response_parser.parse(response.body.to_s).map { |item|
-        PerfectAudit::Book.new(item)
+        PerfectAudit::Book.new(**item)
       }
     end
 
@@ -53,7 +53,7 @@ module PerfectAudit
           pk: id.to_s
         })
 
-      PerfectAudit::Book.new(response_parser.parse(response.body.to_s))
+      PerfectAudit::Book.new(**response_parser.parse(response.body.to_s))
     end
 
     # Delete book in Perfect Audit
