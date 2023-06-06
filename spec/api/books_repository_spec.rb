@@ -12,7 +12,7 @@ describe PerfectAudit::BooksRepository do
   let(:connection) { PerfectAudit.container['connection'] }
 
   before do
-    stub_request(:post, /auth/).to_return({ status: 200, body: json(:auth_token) })
+    stub_request(:post, /auth/).to_return({status: 200, body: json(:auth_token)})
   end
 
   describe '#all' do

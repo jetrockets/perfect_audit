@@ -3,17 +3,18 @@
 require 'spec_helper'
 
 # rubocop:disable RSpec/FilePath
+# rubocop:disable RSpec/PredicateMatcher
 describe PerfectAudit::AuthToken do
-  subject { described_class.new(client_id: 'client_id', client_secret: 'client_secret') }
+  subject(:auth_token) { described_class.new(client_id: 'client_id', client_secret: 'client_secret') }
 
   describe '#get' do
-    let(:get) { subject.get }
+    let(:get) { auth_token.get }
 
-    let(:response) { { status: 200, body: json(:auth_token) } }
+    let(:response) { {status: 200, body: json(:auth_token)} }
 
     before do
-      subject.instance_variable_set(:@token, access_token)
-      subject.instance_variable_set(:@expires_at, expires_at)
+      auth_token.instance_variable_set(:@token, access_token)
+      auth_token.instance_variable_set(:@expires_at, expires_at)
 
       stub_request(:post, /ocrolus/).to_return(response)
     end
@@ -29,7 +30,7 @@ describe PerfectAudit::AuthToken do
       it 'sets expires_at' do
         get
 
-        expect(subject.expired?).to be_falsey
+        expect(auth_token.expired?).to be_falsey
       end
     end
 
@@ -53,7 +54,7 @@ describe PerfectAudit::AuthToken do
       it 'sets expires_at' do
         get
 
-        expect(subject.expired?).to be_falsey
+        expect(auth_token.expired?).to be_falsey
       end
     end
 
@@ -61,7 +62,7 @@ describe PerfectAudit::AuthToken do
       let(:access_token) { nil }
       let(:expires_at) { nil }
 
-      let(:response) { { status: 401, body: json(:access_denied) } }
+      let(:response) { {status: 401, body: json(:access_denied)} }
 
       it 'raises PerfectAudit::AuthError' do
         expect { get }.to raise_error(PerfectAudit::AuthError)
@@ -72,7 +73,7 @@ describe PerfectAudit::AuthToken do
       let(:access_token) { nil }
       let(:expires_at) { nil }
 
-      let(:response) { { status: 500, body: json(:server_error) } }
+      let(:response) { {status: 500, body: json(:server_error)} }
 
       it 'raises PerfectAudit::ServerError' do
         expect { get }.to raise_error(PerfectAudit::ServerError)
@@ -81,11 +82,11 @@ describe PerfectAudit::AuthToken do
   end
 
   describe '#expired?' do
-    let(:expired) { subject.expired? }
+    let(:expired) { auth_token.expired? }
 
     before do
-      subject.instance_variable_set(:@token, access_token)
-      subject.instance_variable_set(:@expires_at, expires_at)
+      auth_token.instance_variable_set(:@token, access_token)
+      auth_token.instance_variable_set(:@expires_at, expires_at)
     end
 
     context 'when a token has not yet been requested' do
@@ -116,3 +117,5 @@ describe PerfectAudit::AuthToken do
     end
   end
 end
+# rubocop:enable RSpec/FilePath
+# rubocop:enable RSpec/PredicateMatcher

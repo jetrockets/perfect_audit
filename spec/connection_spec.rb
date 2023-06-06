@@ -11,27 +11,27 @@ describe PerfectAudit::Connection do
   end
 
   describe '#get' do
-    let(:get) { subject.get('books', params: { page: 1 }) }
+    let(:get) { subject.get('books', params: {page: 1}) }
 
     before do
-      stub_request(:get, /v1/).to_return({ status: 200, body: json(:books) })
+      stub_request(:get, /v1/).to_return({status: 200, body: json(:books)})
     end
 
     context 'when an auth token can be requested' do
-      let(:auth_response) { { status: 200, body: json(:auth_token) } }
+      let(:auth_response) { {status: 200, body: json(:auth_token)} }
 
       it 'makes a get request' do
         get
 
         expect(
-          a_request(:get, 'https://api.ocrolus.com/v1/books?page=1').
-          with(headers: { 'Authorization' => 'Bearer access_token' })
-        ). to have_been_made.once
+          a_request(:get, 'https://api.ocrolus.com/v1/books?page=1')
+          .with(headers: {'Authorization' => 'Bearer access_token'})
+        ).to have_been_made.once
       end
     end
 
     context 'when an auth token can not be requested' do
-      let(:auth_response) { { status: 401, body: json(:access_denied) } }
+      let(:auth_response) { {status: 401, body: json(:access_denied)} }
 
       it 'raises PerfectAudit::AuthError' do
         expect { get }.to raise_error(PerfectAudit::AuthError)
@@ -40,27 +40,27 @@ describe PerfectAudit::Connection do
   end
 
   describe '#post' do
-    let(:post) { subject.post('books/add', params: { name: 'name' }) }
+    let(:post) { subject.post('books/add', params: {name: 'name'}) }
 
     before do
-      stub_request(:post, /v1/).to_return({ status: 200, body: json(:books) })
+      stub_request(:post, /v1/).to_return({status: 200, body: json(:books)})
     end
 
     context 'when an auth token can be requested' do
-      let(:auth_response) { { status: 200, body: json(:auth_token) } }
+      let(:auth_response) { {status: 200, body: json(:auth_token)} }
 
       it 'makes a post request' do
         post
 
         expect(
-          a_request(:post, 'https://api.ocrolus.com/v1/books/add?name=name').
-          with(headers: { 'Authorization' => 'Bearer access_token' })
-        ). to have_been_made.once
+          a_request(:post, 'https://api.ocrolus.com/v1/books/add?name=name')
+          .with(headers: {'Authorization' => 'Bearer access_token'})
+        ).to have_been_made.once
       end
     end
 
     context 'when an auth token can not be requested' do
-      let(:auth_response) { { status: 401, body: json(:access_denied) } }
+      let(:auth_response) { {status: 401, body: json(:access_denied)} }
 
       it 'raises PerfectAudit::AuthError' do
         expect { post }.to raise_error(PerfectAudit::AuthError)
@@ -68,3 +68,4 @@ describe PerfectAudit::Connection do
     end
   end
 end
+# rubocop:enable RSpec/FilePath
