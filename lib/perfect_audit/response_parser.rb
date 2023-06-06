@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'ostruct'
-require 'perfect_audit/error'
 
 module PerfectAudit
   class ResponseParser

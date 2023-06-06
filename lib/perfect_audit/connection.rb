@@ -9,21 +9,29 @@ module PerfectAudit
 
     BASE_PATH = 'https://api.ocrolus.com/v1/'
 
-    option :api_key
-    option :api_secret
+    option :client_id
+    option :client_secret
 
     def post(path, params = {})
-      HTTP.basic_auth(user: api_key, pass: api_secret).post(url(path), params)
+      HTTP.auth(auth).post(url(path), params)
     end
 
     def get(path, params = {})
-      HTTP.basic_auth(user: api_key, pass: api_secret).get(url(path), params)
+      HTTP.auth(auth).get(url(path), params)
     end
 
     private
 
+    def auth
+      "Bearer #{auth_token.get}"
+    end
+
     def url(path)
       URI.join(BASE_PATH, path)
+    end
+
+    def auth_token
+      @auth_token ||= AuthToken.new(client_id: client_id, client_secret: client_secret)
     end
   end
 end

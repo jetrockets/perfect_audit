@@ -11,6 +11,10 @@ describe PerfectAudit::DocumentsRepository do
 
   let(:connection) { PerfectAudit.container['connection'] }
 
+  before do
+    stub_request(:post, /auth/).to_return({ status: 200, body: json(:auth_token) })
+  end
+
   describe '#create' do
     let(:id) { Faker::Number.number(digits: 5) }
     let(:file) { File.open('spec/support/dummy.pdf') }
@@ -27,7 +31,7 @@ describe PerfectAudit::DocumentsRepository do
     }
 
     before {
-      stub_request(:post, /ocrolus/).to_return(body: json(:success_body), status: 200)
+      stub_request(:post, /v1/).to_return(body: json(:success_body), status: 200)
     }
 
     it { expect(documents).to respond_to(:create) }

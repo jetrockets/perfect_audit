@@ -13,4 +13,16 @@ module PerfectAudit
       super + " [#{@code}]"
     end
   end
+
+  class AuthError < StandardError
+    def message
+      'Your credentials are invalid or have been revoked'
+    end
+  end
+
+  class ServerError < StandardError
+    def message
+      'Ocrolus is unavailable. Please try again later.'
+    end
+  end
 end

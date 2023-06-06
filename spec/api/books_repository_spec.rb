@@ -11,6 +11,10 @@ describe PerfectAudit::BooksRepository do
 
   let(:connection) { PerfectAudit.container['connection'] }
 
+  before do
+    stub_request(:post, /auth/).to_return({ status: 200, body: json(:auth_token) })
+  end
+
   describe '#all' do
     let(:correct_params) {
       [
@@ -21,7 +25,7 @@ describe PerfectAudit::BooksRepository do
     let(:books_count) { 5 }
 
     before {
-      stub_request(:get, /ocrolus/).to_return(body: json(:books, count: books_count), status: 200)
+      stub_request(:get, /v1/).to_return(body: json(:books, count: books_count), status: 200)
     }
 
     it { expect(books).to respond_to(:all) }
@@ -51,7 +55,7 @@ describe PerfectAudit::BooksRepository do
     }
 
     before {
-      stub_request(:get, /ocrolus/).to_return(body: json(:books), status: 200)
+      stub_request(:get, /v1/).to_return(body: json(:books), status: 200)
     }
 
     it { expect(books).to respond_to(:find) }
@@ -84,7 +88,7 @@ describe PerfectAudit::BooksRepository do
     }
 
     before {
-      stub_request(:post, /ocrolus/).to_return(body: json(:books), status: 200)
+      stub_request(:post, /v1/).to_return(body: json(:books), status: 200)
     }
 
     it { expect(books).to respond_to(:create) }
@@ -115,7 +119,7 @@ describe PerfectAudit::BooksRepository do
     }
 
     before {
-      stub_request(:post, /ocrolus/).to_return(body: json(:success_body), status: 200)
+      stub_request(:post, /v1/).to_return(body: json(:success_body), status: 200)
     }
 
     it { expect(books).to respond_to(:delete) }

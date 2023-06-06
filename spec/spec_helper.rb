@@ -27,10 +27,10 @@ RSpec.configure do |config|
   end
 end
 
-API_KEY = 'api_key'
-API_SECRET = 'api_secret'
+CLIENT_ID = 'client_id'
+CLIENT_SECRET = 'client_secret'
 
 PerfectAudit.configure do |config|
-  config.api_key = API_KEY
-  config.api_secret = API_SECRET
+  config.client_id = CLIENT_ID
+  config.client_secret = CLIENT_SECRET
 end

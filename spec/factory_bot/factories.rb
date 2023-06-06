@@ -27,5 +27,23 @@ FactoryBot.define do
         }
       end
     end
+
+    factory :auth_token do
+      access_token { 'access_token' }
+      expires_in { 86400 }
+      token_type { 'Bearer' }
+    end
+  end
+
+  factory :access_denied, class: OpenStruct do
+    status { 401 }
+
+    error { 'access_denied' }
+    error_description { 'Unauthorized' }
+  end
+
+  factory :server_error, class: OpenStruct do
+    status { 500 }
+    message { 'Internal Server Error' }
   end
 end

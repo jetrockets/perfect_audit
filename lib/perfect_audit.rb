@@ -3,7 +3,9 @@
 require 'dry-container'
 require 'dry-auto_inject'
 
+require 'perfect_audit/auth_token'
 require 'perfect_audit/connection'
+require 'perfect_audit/error'
 require 'perfect_audit/response_parser'
 require 'perfect_audit/version'
 

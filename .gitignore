@@ -9,3 +9,6 @@
 /tmp/
 
 *.gem
+
+*.swp
+*.swo
