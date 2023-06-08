@@ -21,9 +21,9 @@ module PerfectAudit
 
     def periods
       _periods.map do |item|
-        PerfectAudit::Period.new(item.each_with_object({}) { |(k, v), memo|
-                                   memo[k.to_sym] = v
-                                 })
+        PerfectAudit::Period.new(**item.each_with_object({}) { |(k, v), memo|
+                                     memo[k.to_sym] = v
+                                   })
       end
     end
   end
