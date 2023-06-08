@@ -20,17 +20,17 @@ module PerfectAudit
 
     def bank_accounts
       _bank_accounts.map do |id, params|
-        PerfectAudit::BankAccount.new(params.each_with_object({}) { |(k, v), memo|
-                                        memo[k.to_sym] = v
-                                      })
+        PerfectAudit::BankAccount.new(**params.each_with_object({}) { |(k, v), memo|
+                                          memo[k.to_sym] = v
+                                        })
       end
     end
 
     def documents
       _documents.map do |item|
-        PerfectAudit::Document.new(item.each_with_object({}) { |(k, v), memo|
-                                     memo[k.to_sym] = v
-                                   })
+        PerfectAudit::Document.new(**item.each_with_object({}) { |(k, v), memo|
+                                       memo[k.to_sym] = v
+                                     })
       end
     end
 
